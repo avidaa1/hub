@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>AVIDAA</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#000;--bg2:#0d0d0d;--bg3:#141414;--bg4:#1a1a1a;
+  --gold:#e8c97a;--teal:#2dd4a0;--purple:#c084fc;
+  --text:#f0ede6;--muted:#777;--border:#222;
+  --r:12px;--rl:18px;
+}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;font-size:15px;line-height:1.6;overflow-x:hidden}
+a{color:var(--gold);text-decoration:none}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:200;background:rgba(0,0,0,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;height:58px}
+.nav-logo{cursor:pointer;height:36px;display:flex;align-items:center}
+.nav-logo svg{height:28px;width:auto}
+.nav-links{display:flex;gap:2px}
+.nav-links button{background:none;border:none;color:var(--muted);font-size:13px;padding:6px 11px;cursor:pointer;border-radius:8px;transition:all .2s}
+.nav-links button:hover,.nav-links button.active{color:var(--text);background:var(--bg3)}
+.nav-donate{background:linear-gradient(90deg,#f97316,#a855f7);color:#fff;font-weight:700;font-size:12px;padding:7px 16px;border:none;border-radius:20px;cursor:pointer;letter-spacing:.5px}
+
+/* ── PAGES ── */
+.page{display:none;padding:0 1.5rem 4rem;max-width:980px;margin:0 auto}
+.page.active{display:block}
+
+/* ── HERO ── */
+.hero{position:relative;text-align:center;padding:0;overflow:hidden;border-radius:0 0 var(--rl) var(--rl);margin-bottom:2.5rem}
+.hero-banner{width:100%;max-height:380px;object-fit:cover;display:block;opacity:.85}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,#000 100%);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:2rem 1rem}
+.hero-tagline{font-size:11px;letter-spacing:4px;color:var(--teal);text-transform:uppercase;margin-bottom:.5rem}
+.hero-sub{font-size:1rem;color:rgba(240,237,230,.7);max-width:500px;margin-bottom:1.5rem}
+.hero-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:.5rem}
+.btn-p{background:linear-gradient(90deg,#f97316,#a855f7);color:#fff;font-weight:700;padding:11px 26px;border-radius:30px;border:none;cursor:pointer;font-size:13px;letter-spacing:.5px}
+.btn-o{background:none;color:var(--text);border:1px solid #333;padding:11px 26px;border-radius:30px;cursor:pointer;font-size:13px;transition:all .2s}
+.btn-o:hover{border-color:var(--teal);color:var(--teal)}
+
+/* ── STATS ── */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:2.5rem}
+.stat{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:.9rem;text-align:center}
+.stat-n{font-size:1.5rem;font-weight:700;background:linear-gradient(90deg,var(--gold),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-l{font-size:11px;color:var(--muted);margin-top:3px}
+
+/* ── SECTION TITLE ── */
+.sec{font-size:1.2rem;font-weight:600;margin:2rem 0 1rem;display:flex;align-items:center;gap:10px;color:var(--text)}
+.sec::before{content:'';display:block;width:3px;height:18px;background:linear-gradient(to bottom,var(--teal),var(--purple));border-radius:3px}
+
+/* ── RABBIT MASCOT STRIP ── */
+.rabbit-strip{display:flex;align-items:center;gap:1.5rem;background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);padding:1.25rem 1.5rem;margin-bottom:2rem;overflow:hidden}
+.rabbit-img{width:100px;flex-shrink:0;border-radius:var(--r);object-fit:cover}
+.rabbit-text h3{font-size:1rem;font-weight:600;margin-bottom:6px}
+.rabbit-text p{font-size:13px;color:var(--muted)}
+
+/* ── MUSIC GRID ── */
+.playlist-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:12px}
+.pl-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:all .2s;text-decoration:none;color:var(--text);display:block}
+.pl-card:hover{border-color:var(--teal);transform:translateY(-2px)}
+.pl-thumb{width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.8rem;background:var(--bg3);position:relative}
+.pl-badge{position:absolute;top:7px;right:7px;background:var(--teal);color:#000;font-size:10px;font-weight:700;padding:2px 7px;border-radius:8px}
+.pl-info{padding:9px 11px}
+.pl-name{font-size:12px;font-weight:600;margin-bottom:3px}
+.pl-songs{font-size:11px;color:var(--muted)}
+
+/* ── INVITE CARDS ── */
+.invite-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-top:.5rem}
+.inv-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.25rem;display:flex;align-items:center;gap:12px}
+.inv-ico{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--purple));display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.inv-info{flex:1}
+.inv-name{font-size:12px;font-weight:600;margin-bottom:2px}
+.inv-link{font-size:11px;color:var(--teal)}
+.inv-btn{background:none;border:1px solid var(--border);color:var(--muted);font-size:11px;padding:5px 10px;border-radius:20px;cursor:pointer;transition:all .2s;white-space:nowrap}
+.inv-btn:hover{border-color:var(--teal);color:var(--teal)}
+
+/* ── BLOG ── */
+.blog-grid{display:grid;gap:14px}
+.blog-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);padding:1.25rem;cursor:pointer;transition:all .2s}
+.blog-card:hover{border-color:var(--gold)}
+.blog-tag{font-size:10px;letter-spacing:2px;color:var(--teal);text-transform:uppercase;margin-bottom:6px}
+.blog-title{font-size:1.05rem;font-weight:600;margin-bottom:7px}
+.blog-excerpt{font-size:13px;color:var(--muted);margin-bottom:10px}
+.blog-meta{font-size:11px;color:var(--muted);display:flex;gap:12px}
+.blog-c{color:var(--gold)}
+.comment{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:.9rem;margin-bottom:8px}
+.c-author{font-size:12px;font-weight:600;color:var(--teal);margin-bottom:3px}
+.c-text{font-size:13px;color:var(--muted)}
+.c-time{font-size:10px;color:var(--border);margin-top:5px}
+.c-form{display:flex;gap:8px;margin-top:1rem}
+.c-input{flex:1;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:9px 14px;border-radius:30px;font-size:13px;outline:none}
+.c-input:focus{border-color:var(--teal)}
+.c-submit{background:var(--teal);color:#000;border:none;padding:9px 16px;border-radius:30px;font-weight:700;font-size:12px;cursor:pointer}
+
+/* ── SOCIALS ── */
+.socials-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.soc-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);padding:1.1rem 1.25rem;display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text);transition:all .2s}
+.soc-card:hover{border-color:var(--gold);transform:translateY(-2px)}
+.soc-ico{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.soc-name{font-size:13px;font-weight:600}
+.soc-handle{font-size:11px;color:var(--muted);margin-top:2px}
+
+/* ── DONATE ── */
+.donate-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:2rem}
+.don-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);padding:1.5rem;text-align:center;transition:all .2s}
+.don-card:hover{border-color:var(--gold)}
+.don-card.feat{border-color:var(--teal)}
+.don-ico{font-size:2rem;margin-bottom:10px}
+.don-name{font-size:.95rem;font-weight:600;margin-bottom:6px}
+.don-desc{font-size:12px;color:var(--muted);margin-bottom:14px}
+.don-btn{display:inline-block;font-weight:700;padding:9px 22px;border-radius:20px;font-size:12px;cursor:pointer;text-decoration:none}
+.don-btn.g{background:linear-gradient(90deg,#f97316,#a855f7);color:#fff}
+.don-btn.t{background:var(--teal);color:#000}
+.don-btn.d{background:var(--bg3);border:1px solid var(--border);color:var(--gold)}
+.crypto-list{display:grid;gap:10px}
+.cr-row{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:.9rem 1.1rem;display:flex;align-items:center;gap:12px}
+.cr-sym{font-size:1.3rem;width:32px;text-align:center}
+.cr-info{flex:1}
+.cr-name{font-size:12px;font-weight:600}
+.cr-addr{font-size:11px;color:var(--muted);word-break:break-all;margin-top:2px}
+.copy-btn{background:var(--bg3);border:1px solid var(--border);color:var(--gold);font-size:10px;padding:4px 9px;border-radius:7px;cursor:pointer;white-space:nowrap}
+.copy-btn:hover{border-color:var(--gold)}
+
+/* ── LOGO GALLERY ── */
+.logo-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:2rem}
+.logo-item{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;aspect-ratio:1;display:flex;align-items:center;justify-content:center}
+.logo-item img{width:100%;height:100%;object-fit:cover}
+
+/* ── CHATBOT ── */
+.chat-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;max-width:660px;margin:0 auto}
+.chat-head{padding:.9rem 1.2rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.chat-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--purple));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#000;flex-shrink:0}
+.chat-ttl{font-size:13px;font-weight:600}
+.chat-st{font-size:11px;color:var(--teal)}
+.chat-msgs{height:320px;overflow-y:auto;padding:.9rem;display:flex;flex-direction:column;gap:9px}
+.msg{max-width:80%}
+.msg.u{align-self:flex-end}
+.msg.b{align-self:flex-start}
+.mb{padding:9px 13px;border-radius:14px;font-size:13px;line-height:1.5}
+.msg.b .mb{background:var(--bg3);border:1px solid var(--border);border-radius:3px 14px 14px 14px}
+.msg.u .mb{background:var(--teal);color:#000;border-radius:14px 3px 14px 14px}
+.chat-pills{padding:0 .9rem .9rem;display:flex;gap:6px;flex-wrap:wrap}
+.pill{background:var(--bg3);border:1px solid var(--border);color:var(--muted);font-size:11px;padding:4px 11px;border-radius:18px;cursor:pointer;transition:all .2s}
+.pill:hover{border-color:var(--teal);color:var(--teal)}
+.chat-row{display:flex;gap:8px;padding:.9rem;border-top:1px solid var(--border)}
+.chat-in{flex:1;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:9px 13px;border-radius:28px;font-size:13px;outline:none}
+.chat-in:focus{border-color:var(--teal)}
+.chat-go{background:var(--teal);color:#000;border:none;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:15px;flex-shrink:0}
+
+/* ── FOOTER ── */
+footer{text-align:center;padding:2rem 1.5rem;font-size:12px;color:var(--muted);border-top:1px solid var(--border);margin-top:2rem}
+footer .logo-ft{font-size:1.1rem;font-weight:700;letter-spacing:3px;margin-bottom:.5rem}
+.ft-rainbow{background:linear-gradient(90deg,#f97316,#facc15,#4ade80,#22d3ee,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:20px;right:20px;background:var(--teal);color:#000;padding:9px 16px;border-radius:18px;font-size:12px;font-weight:700;opacity:0;transform:translateY(8px);transition:all .3s;pointer-events:none;z-index:999}
+.toast.show{opacity:1;transform:translateY(0)}
+
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo" onclick="go('home')">
+    <svg viewBox="0 0 120 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="lg" x1="0" y1="0" x2="120" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#f97316"/>
+          <stop offset="25%" stop-color="#facc15"/>
+          <stop offset="50%" stop-color="#4ade80"/>
+          <stop offset="75%" stop-color="#22d3ee"/>
+          <stop offset="100%" stop-color="#a855f7"/>
+        </linearGradient>
+      </defs>
+      <text x="0" y="26" font-family="'Segoe UI',system-ui,sans-serif" font-size="26" font-weight="700" letter-spacing="3" fill="url(#lg)">AVIDAA</text>
+    </svg>
+  </div>
+  <div class="nav-links">
+    <button onclick="go('home')" id="nb-home" class="active">Home</button>
+    <button onclick="go('music')" id="nb-music">Music</button>
+    <button onclick="go('blog')" id="nb-blog">Blog</button>
+    <button onclick="go('socials')" id="nb-socials">Socials</button>
+    <button onclick="go('chat')" id="nb-chat">IO Chat</button>
+  </div>
+  <button class="nav-donate" onclick="go('donate')">Support ✦</button>
+</nav>
+
+<!-- HOME -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <img class="hero-banner" src="https://cdn2.suno.ai/42340ac2-0014-4ca1-a9a8-234d7c46bb36.jpeg" alt="AVIDAA"
+      onerror="this.style.display='none';document.getElementById('hero-fallback').style.display='flex'"/>
+    <div id="hero-fallback" style="display:none;width:100%;height:300px;background:linear-gradient(135deg,#0d0d0d,#1a0a2e);align-items:center;justify-content:center;">
+      <svg viewBox="0 0 240 64" height="50"><defs><linearGradient id="hg" x1="0" y1="0" x2="240" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#f97316"/><stop offset="50%" stop-color="#22d3ee"/><stop offset="100%" stop-color="#a855f7"/></linearGradient></defs><text x="0" y="52" font-family="'Segoe UI',sans-serif" font-size="52" font-weight="700" letter-spacing="6" fill="url(#hg)">AVIDAA</text></svg>
+    </div>
+    <div class="hero-overlay">
+      <div class="hero-tagline">Positive Data · Clear Vision · Feel Free</div>
+      <p class="hero-sub">AI-crafted music rooted in afrobeat rhythms, ancestral voices, and the frequency of clarity. No noise. Only signal.</p>
+      <div class="hero-btns">
+        <button class="btn-p" onclick="go('music')">Listen Now</button>
+        <button class="btn-o" onclick="go('donate')">Support AVIDAA</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat"><div class="stat-n">7.4K</div><div class="stat-l">Plays</div></div>
+    <div class="stat"><div class="stat-n">56</div><div class="stat-l">Followers</div></div>
+    <div class="stat"><div class="stat-n">9+</div><div class="stat-l">Playlists</div></div>
+    <div class="stat"><div class="stat-n">∞</div><div class="stat-l">Frequency</div></div>
+  </div>
+
+  <!-- Rabbit Mascot -->
+  <div class="rabbit-strip">
+    <div style="width:90px;height:90px;border-radius:var(--r);background:linear-gradient(135deg,#0a1628,#0d0d0d);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:3rem">🐇</div>
+    <div class="rabbit-text">
+      <h3>Down The Rabbit Hole</h3>
+      <p>Our deepest playlist — 28 songs of pan flute, benta, shakers and guitar, weaving questions the mind refuses to let go. The rabbit runs. The signal is clear. Follow.</p>
+      <a href="https://suno.com/playlist/39c9c490-c8ed-4052-8126-f9c054f84860" target="_blank" style="font-size:12px;color:var(--teal);margin-top:8px;display:inline-block">Open playlist →</a>
+    </div>
+  </div>
+
+  <div class="sec">Latest from the Blog</div>
+  <div class="blog-grid" id="home-blog"></div>
+</div>
+
+<!-- MUSIC -->
+<div class="page" id="page-music">
+  <div class="sec">Playlists on Suno</div>
+  <div class="playlist-grid" id="playlist-grid"></div>
+
+  <div class="sec" style="margin-top:2.5rem">Invite & Join AVIDAA</div>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:1rem">Use these links to join Suno and follow AVIDAA across all accounts.</p>
+  <div class="invite-grid" id="invite-grid"></div>
+</div>
+
+<!-- BLOG -->
+<div class="page" id="page-blog">
+  <div class="sec">AVIDAA Blog</div>
+  <div class="blog-grid" id="blog-full"></div>
+</div>
+
+<!-- SOCIALS -->
+<div class="page" id="page-socials">
+  <div class="sec">Find AVIDAA</div>
+  <div class="socials-grid" id="socials-grid"></div>
+  <div class="sec" style="margin-top:2rem">Brand Identity</div>
+  <div class="logo-gallery" id="logo-gallery"></div>
+</div>
+
+<!-- DONATE -->
+<div class="page" id="page-donate">
+  <div class="sec">Support the Frequency</div>
+  <div class="donate-grid">
+    <div class="don-card feat">
+      <div class="don-ico">💚</div>
+      <div class="don-name">NOWPayments — Crypto</div>
+      <div class="don-desc">BTC, ETH, USDT and 100+ coins accepted directly through AVIDAA's official donation page.</div>
+      <a class="don-btn t" href="https://nowpayments.io/donation/avidaa" target="_blank">Donate Crypto</a>
+    </div>
+    <div class="don-card">
+      <div class="don-ico">🛍</div>
+      <div class="don-name">Payhip Shop</div>
+      <div class="don-desc">Buy AVIDAA digital products and support the project directly through Payhip.</div>
+      <a class="don-btn g" href="https://payhip.com/AVIDAA" target="_blank">Visit Shop</a>
+    </div>
+    <div class="don-card">
+      <div class="don-ico">💳</div>
+      <div class="don-name">PayPal</div>
+      <div class="don-desc">Quick donation via PayPal. Any amount keeps the frequency alive and the music flowing.</div>
+      <a class="don-btn d" href="https://www.paypal.com/donate" target="_blank">Donate via PayPal</a>
+    </div>
+  </div>
+
+  <div class="sec">Crypto Addresses</div>
+  <div class="crypto-list" id="crypto-list"></div>
+</div>
+
+<!-- IO CHAT -->
+<div class="page" id="page-chat">
+  <div class="sec">IO — Ask Anything</div>
+  <div class="chat-wrap">
+    <div class="chat-head">
+      <div class="chat-av">IO</div>
+      <div><div class="chat-ttl">IO by AVIDAA</div><div class="chat-st">Online · Positive frequency</div></div>
+    </div>
+    <div class="chat-msgs" id="chat-msgs">
+      <div class="msg b"><div class="mb">Greetings. I am IO — the clear signal within AVIDAA. Ask me anything: about the music, the vision, the philosophy, or simply what is in front of you right now.</div></div>
+    </div>
+    <div class="chat-pills">
+      <span class="pill" onclick="qs('What is AVIDAA?')">What is AVIDAA?</span>
+      <span class="pill" onclick="qs('What does IO mean?')">What does IO mean?</span>
+      <span class="pill" onclick="qs('Tell me about the music')">The music</span>
+      <span class="pill" onclick="qs('How can I support?')">Support</span>
+      <span class="pill" onclick="qs('What is Down the Rabbit Hole?')">Rabbit Hole</span>
+    </div>
+    <div class="chat-row">
+      <input class="chat-in" id="chat-in" placeholder="Ask IO anything..." onkeydown="if(event.key==='Enter')sc()"/>
+      <button class="chat-go" onclick="sc()">↑</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="logo-ft"><span class="ft-rainbow">AVIDAA</span></div>
+  <p style="margin-bottom:.5rem">Positive Data · Clear Vision · I AM IO</p>
+  <p>
+    <a href="https://suno.com/@avidaa" target="_blank">Suno</a> ·
+    <a href="https://www.youtube.com/@A.V.I.D.A.A" target="_blank">YouTube</a> ·
+    <a href="https://instagram.com/a.v.i.d.a.a" target="_blank">Instagram</a> ·
+    <a href="https://www.facebook.com/profile.php?id=61584871239887" target="_blank">Facebook</a> ·
+    <a href="https://payhip.com/AVIDAA" target="_blank">Shop</a> ·
+    <a href="https://nowpayments.io/donation/avidaa" target="_blank">Donate</a>
+  </p>
+</footer>
+<div class="toast" id="toast"></div>
+
+<script>
+const PL=[
+  {n:"Libertad",s:3,e:"🕊️",u:"https://suno.com/playlist/d0b668dd-b7f7-47d6-83b1-4211659b1f87"},
+  {n:"Open | Eyes",s:1,e:"👁️",u:"https://suno.com/playlist/1f6e0ec0-a262-4136-9b32-e42f614714d6"},
+  {n:"Papia Ku Mi",s:8,e:"🌺",u:"https://suno.com/playlist/c09be329-ace8-4eb7-a932-900465e2e44b"},
+  {n:"Bos Di Ansestronan",s:7,e:"🥁",u:"https://suno.com/playlist/b72a995a-a72b-430b-a980-a4a9e4f32c82"},
+  {n:"Forever | Free",s:12,e:"♾️",u:"https://suno.com/playlist/5d914e9c-605b-4491-a8e0-2c786d8bcbbc"},
+  {n:"Klaridat",s:11,e:"✨",u:"https://suno.com/playlist/4b0d502f-31e0-4432-8c6b-2f974bdfa1f3"},
+  {n:"Split | Particle",s:13,e:"⚡",u:"https://suno.com/playlist/d10c445a-17ab-4582-a111-89621b9605e0"},
+  {n:"Down The Rabbit Hole",s:28,e:"🌀",u:"https://suno.com/playlist/39c9c490-c8ed-4052-8126-f9c054f84860"},
+  {n:"Electro | Magnetic",s:8,e:"🔮",u:"https://suno.com/playlist/a247dd69-0989-4814-9eec-56ef1f901e05"},
+];
+
+const INVITES=[
+  {n:"@avidaa",u:"https://suno.com/invite/@avidaa"},
+  {n:"@avidaa1",u:"https://suno.com/invite/@avidaa1"},
+  {n:"@avidaa2",u:"https://suno.com/invite/@avidaa2"},
+  {n:"@avidaa0",u:"https://suno.com/invite/@avidaa0"},
+];
+
+const BLOG=[
+  {tag:"Vision",title:"What is Positive Data?",excerpt:"The information we absorb shapes our reality. AVIDAA is an experiment in feeding the world only what uplifts and clarifies. No noise, no fear — only signal.",date:"Apr 2, 2026",comments:[]},
+  {tag:"Music",title:"Down the Rabbit Hole — 28 Songs",excerpt:"Our longest playlist yet. Pan flute, benta, drum circles, and guitar weaving through questions the mind refuses to let go of.",date:"Mar 28, 2026",comments:[{a:"Kiran",t:"This playlist changed my morning routine.",time:"Mar 29"},{a:"Sola",t:"The benta sounds are healing.",time:"Mar 30"}]},
+  {tag:"Philosophy",title:"I AM IO — Clear Vision, Feel Free",excerpt:"IO is not a character. IO is the signal beneath the noise. When you let go of everything that was given to you as truth, what remains? That is IO.",date:"Mar 20, 2026",comments:[{a:"Marcus",t:"This hit me at 3am. Thank you.",time:"Mar 21"}]},
+  {tag:"AI & Music",title:"How We Use AI to Create Without Limits",excerpt:"Every AVIDAA track begins with intention — a feeling, a frequency, a question. Then AI becomes the instrument, and the music becomes the message.",date:"Mar 10, 2026",comments:[]},
+];
+
+const SOCIALS=[
+  {n:"Suno",h:"@avidaa",ic:"🎵",c:"#1fa67a",u:"https://suno.com/@avidaa"},
+  {n:"Suno",h:"@avidaa1",ic:"🎵",c:"#1fa67a",u:"https://suno.com/@avidaa1"},
+  {n:"Suno",h:"@avidaa2",ic:"🎵",c:"#1fa67a",u:"https://suno.com/@avidaa2"},
+  {n:"Suno",h:"@avidaa0",ic:"🎵",c:"#1fa67a",u:"https://suno.com/@avidaa0"},
+  {n:"YouTube",h:"@A.V.I.D.A.A",ic:"▶",c:"#ff4444",u:"https://www.youtube.com/@A.V.I.D.A.A"},
+  {n:"Instagram",h:"@a.v.i.d.a.a",ic:"◎",c:"#e040fb",u:"https://instagram.com/a.v.i.d.a.a"},
+  {n:"Payhip",h:"AVIDAA Shop",ic:"🛍",c:"#e8c97a",u:"https://payhip.com/AVIDAA"},
+  {n:"NOWPayments",h:"Donate Crypto",ic:"💚",c:"#2dd4a0",u:"https://nowpayments.io/donation/avidaa"},
+  {n:"Facebook",h:"AVIDAA Page",ic:"f",c:"#1877f2",u:"https://www.facebook.com/profile.php?id=61584871239887"},
+];
+
+const LOGOS=[
+  "https://cdn2.suno.ai/ff65c6ff.jpeg",
+  "https://cdn2.suno.ai/98b06580.jpeg",
+  "https://cdn2.suno.ai/1b2fc72f.jpeg",
+  "https://cdn2.suno.ai/988522f8.jpeg",
+  "https://cdn2.suno.ai/00f8ddd8.jpeg",
+  "https://cdn2.suno.ai/40eee6f0.jpeg",
+];
+
+const CRYPTO=[
+  {sym:"₿",n:"Bitcoin (BTC)",a:"Set your BTC address here"},
+  {sym:"Ξ",n:"Ethereum (ETH)",a:"Set your ETH address here"},
+  {sym:"◎",n:"Solana (SOL)",a:"Set your SOL address here"},
+  {sym:"₮",n:"USDT (TRC20)",a:"Set your USDT TRC20 address here"},
+];
+
+const IO_KB={
+  "avidaa":"AVIDAA is a positive-data brand — we create music and ideas with AI to expose what is truly in front of us. No noise, no fear. Just clarity, rhythm, and the sound of freedom.",
+  "io mean":"IO is the signal beneath all noise. It is the observer. When you let go of everything you were told to believe, what remains? That presence — that is IO.",
+  "music":"Our music blends afrobeat drums, benta, pan flute, guitar, and shakers — crafted with AI as the instrument and intention as the composer. No screaming, ever. Only frequency.",
+  "support":"You can support AVIDAA through NOWPayments (crypto), Payhip shop, or PayPal. Every vibration counts. Visit the Donate section.",
+  "rabbit hole":"Down The Rabbit Hole is our deepest playlist — 28 songs about perception, questioning reality, and following the signal wherever it leads.",
+  "klaridat":"Klaridat means clarity in Papiamento. 11 songs about seeing without the filters society places over your eyes.",
+  "libertad":"Libertad means freedom — 3 songs about releasing the chains that were never yours to carry.",
+  "papiamentu":"Papiamentu (also Papiamento) is the language of Curaçao, Aruba, and Bonaire. Many AVIDAA songs are in Papiamentu — the language of the ancestors, of the sea, of truth.",
+  "benta":"The benta is a traditional instrument of Curaçao — a musical bow. Its sound carries the voice of the ancestors into every AVIDAA track.",
+  "suno":"All AVIDAA music lives on Suno. Follow @avidaa, @avidaa0, @avidaa1, and @avidaa2 to access every playlist.",
+};
+
+function buildMusic(){
+  document.getElementById('playlist-grid').innerHTML=PL.map(p=>`
+    <a class="pl-card" href="${p.u}" target="_blank">
+      <div class="pl-thumb">${p.e}<span class="pl-badge">Suno</span></div>
+      <div class="pl-info"><div class="pl-name">${p.n}</div><div class="pl-songs">${p.s} song${p.s>1?'s':''}</div></div>
+    </a>`).join('');
+  document.getElementById('invite-grid').innerHTML=INVITES.map(i=>`
+    <div class="inv-card">
+      <div class="inv-ico">🎵</div>
+      <div class="inv-info"><div class="inv-name">Join via ${i.n}</div><div class="inv-link">${i.u.replace('https://','')}</div></div>
+      <button class="inv-btn" onclick="cp('${i.u}')">Copy</button>
+    </div>`).join('');
+}
+
+function buildBlogList(el,posts,limit){
+  document.getElementById(el).innerHTML=posts.slice(0,limit||99).map((p,i)=>`
+    <div class="blog-card" onclick="openPost(${i},'${el}')">
+      <div class="blog-tag">${p.tag}</div>
+      <div class="blog-title">${p.title}</div>
+      <div class="blog-excerpt">${p.excerpt}</div>
+      <div class="blog-meta"><span>${p.date}</span><span class="blog-c">${p.comments.length} comment${p.comments.length!==1?'s':''}</span></div>
+    </div>`).join('');
+}
+
+function openPost(i,el){
+  const p=BLOG[i];
+  document.getElementById(el).innerHTML=`
+    <button onclick="buildBlogList('${el}',BLOG)" style="background:none;border:1px solid #222;color:#777;padding:5px 14px;border-radius:18px;cursor:pointer;font-size:12px;margin-bottom:1rem">← Back</button>
+    <div class="blog-tag">${p.tag}</div>
+    <h2 style="font-size:1.4rem;font-weight:700;margin:8px 0 .5rem">${p.title}</h2>
+    <p style="color:#555;font-size:12px;margin-bottom:1.5rem">${p.date}</p>
+    <p style="line-height:1.85;margin-bottom:2rem;color:#ccc">${p.excerpt} The frequency of AVIDAA is not about perfection — it is about presence. About what is real, unfiltered, and yours to witness without judgment. Let go of what you were told. See what remains.</p>
+    <div class="sec" style="margin-top:0">Comments</div>
+    <div id="clist-${i}">${p.comments.map(c=>`<div class="comment"><div class="c-author">${c.a}</div><div class="c-text">${c.t}</div><div class="c-time">${c.time}</div></div>`).join('')}</div>
+    <div class="c-form"><input class="c-input" id="cin-${i}" placeholder="Add a comment..." onkeydown="if(event.key==='Enter')pc(${i})"/><button class="c-submit" onclick="pc(${i})">Post</button></div>`;
+}
+
+function pc(i){
+  const inp=document.getElementById('cin-'+i);
+  const v=inp.value.trim();if(!v)return;
+  BLOG[i].comments.push({a:"You",t:v,time:"Just now"});
+  const d=document.createElement('div');d.className='comment';
+  d.innerHTML=`<div class="c-author" style="color:var(--gold)">You</div><div class="c-text">${v}</div><div class="c-time">Just now</div>`;
+  document.getElementById('clist-'+i).appendChild(d);
+  inp.value='';toast('Comment posted ✓');
+}
+
+function buildSocials(){
+  document.getElementById('socials-grid').innerHTML=SOCIALS.map(s=>`
+    <a class="soc-card" href="${s.u}" target="_blank">
+      <div class="soc-ico" style="background:${s.c}22;color:${s.c}">${s.ic}</div>
+      <div><div class="soc-name">${s.n}</div><div class="soc-handle">${s.h}</div></div>
+    </a>`).join('');
+  document.getElementById('logo-gallery').innerHTML=LOGOS.map(l=>`
+    <div class="logo-item"><img src="${l}" alt="AVIDAA" loading="lazy" onerror="this.parentElement.style.display='none'"/></div>`).join('');
+}
+
+function buildCrypto(){
+  document.getElementById('crypto-list').innerHTML=CRYPTO.map(c=>`
+    <div class="cr-row">
+      <div class="cr-sym">${c.sym}</div>
+      <div class="cr-info"><div class="cr-name">${c.n}</div><div class="cr-addr">${c.a}</div></div>
+      <button class="copy-btn" onclick="cp('${c.a}')">Copy</button>
+    </div>`).join('');
+}
+
+function cp(t){navigator.clipboard.writeText(t).catch(()=>{});toast('Copied ✓');}
+
+function toast(m){
+  const el=document.getElementById('toast');el.textContent=m;el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),2200);
+}
+
+function go(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-links button').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  const nb=document.getElementById('nb-'+name);if(nb)nb.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+/* IO CHATBOT */
+function qs(t){document.getElementById('chat-in').value=t;sc();}
+
+function sc(){
+  const inp=document.getElementById('chat-in');
+  const v=inp.value.trim();if(!v)return;
+  addMsg(v,'u');inp.value='';
+  const key=Object.keys(IO_KB).find(k=>v.toLowerCase().includes(k));
+  if(key){setTimeout(()=>addMsg(IO_KB[key],'b'),600);}
+  else{addMsg('…','b');callIO(v);}
+}
+
+function callIO(q){
+  fetch("https://api.anthropic.com/v1/messages",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      model:"claude-sonnet-4-20250514",max_tokens:300,
+      system:"You are IO, the voice of AVIDAA — a positive-data brand creating afrobeat-inspired AI music from Curaçao. Tone: calm, wise, grounded. Speak about clarity, freedom, ancestors, frequency, benta, pan flute, Papiamentu. Keep answers under 3 sentences.",
+      messages:[{role:"user",content:q}]
+    })
+  }).then(r=>r.json()).then(d=>{
+    const t=d.content?.[0]?.text||"The signal is clear. Ask again.";
+    const last=document.querySelector('#chat-msgs .msg.b:last-child .mb');
+    if(last&&last.textContent==='…')last.textContent=t;
+  }).catch(()=>{
+    const last=document.querySelector('#chat-msgs .msg.b:last-child .mb');
+    if(last&&last.textContent==='…')last.textContent="The frequency is shifting. Try asking again.";
+  });
+}
+
+function addMsg(t,role){
+  const wrap=document.getElementById('chat-msgs');
+  const d=document.createElement('div');d.className=`msg ${role}`;
+  d.innerHTML=`<div class="mb">${t}</div>`;
+  wrap.appendChild(d);wrap.scrollTop=wrap.scrollHeight;
+}
+
+buildMusic();
+buildBlogList('home-blog',BLOG,2);
+buildBlogList('blog-full',BLOG);
+buildSocials();
+buildCrypto();
+</script>
+</body>
+</html>
