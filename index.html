@@ -2395,13 +2395,13 @@ const KNOW_DETAIL={
   "Memento Mori":"Roman generals returning from battle were followed by a slave whispering 'memento mori' — remember you will die.\n\nNot as a curse. As clarity.\n\nSeneca: 'Let us prepare our minds as if we had come to the very end of life. Let us postpone nothing. Let us balance life's books each day.'\n\nThe Stoics meditated on death not to become morbid — but because death gives everything else proportion. It burns away what doesn't matter. What remains is what you actually care about.",
   "World Countries":"Current UN member states: 193. Recognized states: 195 (includes Vatican and Palestine). Notable historical nations: Roman Empire, Byzantine, Ottoman, Mongol Empire, Carthage, Babylon, Akkad, Sumer, Persia (Achaemenid/Sassanid), Mughal India, Tang Dynasty China, Aztec, Maya, Inca, Holy Roman Empire, Soviet Union, Yugoslavia, Czechoslovakia, East Germany, South Vietnam, Transjordan, Rhodesia, Dahomey, Upper Volta, Ceylon, Burma, Biafra, and hundreds more. The number of distinct political entities in human history exceeds 2,000.",
   "World Languages":"There are approximately 7,100 living languages. 40% are endangered (fewer than 1,000 speakers). One language dies every 2 weeks. Major families: Indo-European (3 billion speakers: English, Spanish, Hindi, Russian, Portuguese, German, French), Sino-Tibetan (Mandarin, Cantonese, Tibetan), Afro-Asiatic (Arabic, Hebrew, Amharic), Niger-Congo (Swahili, Yoruba, Zulu), Austronesian (Malay, Tagalog, Hawaiian), Dravidian (Tamil, Telugu, Kannada), Turkic (Turkish, Uzbek, Kazakh), Japonic (Japanese), Koreanic, Kartvelian (Georgian). Notable extinct: Sumerian, Akkadian, Latin (ancestor of Romance languages), Proto-Indo-European (reconstructed ancestor of 445+ languages), Coptic (survived only in Egyptian church liturgy), Linear A (undeciphered). Constructed languages: Esperanto (~2M speakers), Klingon, Na'vi, Dothraki.",
-  "Binary & How Computers Think": KNOW_TECH_EXTRA.find(x=>x.title==='Binary & How Computers Think')?.detail||'',
-  "Algorithms — The Rules of Thought": KNOW_TECH_EXTRA.find(x=>x.title==='Algorithms — The Rules of Thought')?.detail||'',
-  "Quantum AI — The Next Threshold": KNOW_TECH_EXTRA.find(x=>x.title==='Quantum AI — The Next Threshold')?.detail||'',
-  "Crude Oil — Black Gold": KNOW_TECH_EXTRA.find(x=>x.title==='Crude Oil — Black Gold')?.detail||'',
-  "Solar Panels — How We Capture the Sun": KNOW_TECH_EXTRA.find(x=>x.title==='Solar Panels — How We Capture the Sun')?.detail||'',
-  "Wind Energy — Turbines and the Grid": KNOW_TECH_EXTRA.find(x=>x.title==='Wind Energy — Turbines and the Grid')?.detail||'',
-  "Global Economy — How the System Works": KNOW_TECH_EXTRA.find(x=>x.title==='Global Economy — How the System Works')?.detail||'',
+  "Binary & How Computers Think": '',
+  "Algorithms — The Rules of Thought": '',
+  "Quantum AI — The Next Threshold": '',
+  "Crude Oil — Black Gold": '',
+  "Solar Panels — How We Capture the Sun": '',
+  "Wind Energy — Turbines and the Grid": '',
+  "Global Economy — How the System Works": '',
   "World Instruments":"See the Instruments section — 15 instruments from the Caribbean, Africa, Asia, and the world. Each carries the history of a people.",
   "Marcus Aurelius":"Roman Emperor 161–180 AD. Led Rome through the Antonine Plague and multiple wars. The most powerful man in the world kept a private journal — never intended for publication — recording his daily struggle to live according to Stoic principles.\n\nThe Meditations contains no philosophy lectures. It contains a person fighting, failing, and trying again. 'Waste no more time arguing what a good man should be. Be one.'\n\nHe never called himself a philosopher. He called himself a student who kept failing.",
 };
@@ -2654,10 +2654,12 @@ function nasaTab(tab,btn){
 function cp(t){navigator.clipboard.writeText(t).catch(()=>{});showToast('Copied ✓');}
 function showToast(m){const el=document.getElementById('toast');el.textContent=m;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2400);}
 function go(name){
+  const target=document.getElementById('page-'+name);
+  if(!target){console.warn('go: no page-'+name);return;}
   SFX.nav();
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-links button').forEach(b=>b.classList.remove('active'));
-  document.getElementById('page-'+name).classList.add('active');
+  target.classList.add('active');
   const nb=document.getElementById('nb-'+name);if(nb)nb.classList.add('active');
   window.scrollTo(0,0);
   if(name==='music'){buildMusic();}
@@ -2676,11 +2678,7 @@ function go(name){
   if(name==='foia'){_foiaFilter='all';buildFoiaList();}
   if(name==='cipher'){buildAvidaaCipherTable();}
   if(name==='archive'){setTimeout(()=>{const b=document.getElementById('arc-tab-sumer');if(b)arcTab('sumer',b);},50);}
-  if(name==='museum'){
-    document.querySelectorAll('#museum-btns .tl-tab')[0]?.classList.add('active');
-    museum3d('earth');
-    startMuseumAuto();
-  }
+  if(name==='museum'){document.querySelectorAll('#museum-btns .tl-tab')[0]?.classList.add('active');museum3d('earth');startMuseumAuto();}
   if(name==='matrix'){_matrixFilter='all';buildMatrixList();}
   if(name==='chakra'){buildChakras();}
   if(name==='access'){accessTab('color',document.getElementById('acc-tab-color'));}
@@ -2692,17 +2690,9 @@ function go(name){
   if(name==='earth'){earthTab('quake',document.getElementById('earth-tab-quake'));}
   if(name==='creative'){creativeTab('poetry',document.getElementById('cr-tab-poetry'));}
   if(name==='studio'){setTimeout(initPaintCanvas,50);}
-  if(name==='blackjack'){bjShuffle();bjRender();bjStatus('Place your bet and Deal!');}
-  if(name==='uno'){unoTab('game',document.getElementById('uno-tab-game'));}
   if(name==='calc'){calcTab('sci',document.getElementById('calc-tab-sci'));}
   if(name==='ioart'){buildIOArt();}
-  if(name==='meditate'){medTab('intro',document.getElementById('med-tab-intro'));}
   if(name==='survival'){survTab('kit',document.getElementById('surv-tab-kit'));}
-  if(name==='sos'){sosTab('cpr',document.querySelector('#page-sos .tl-tab'));}
-  if(name==='cyber'){cyberTab('threats',document.getElementById('cy-tab-threats'));}
-  if(name==='legends'){buildLegendsGrid();}
-  if(name==='earth'){earthTab('quake',document.getElementById('earth-tab-quake'));}
-  // Clean up piano keyboard listeners when navigating away from kids
   if(name!=='kids'){const kc=document.getElementById('kids-zone-content');if(kc&&kc._pianoCleanup){kc._pianoCleanup();kc._pianoCleanup=null;}}
 }
 
@@ -2930,7 +2920,7 @@ window.fetchGold=function(){
 };
 
 /* ══ SOUND ENGINE ══ */
-const SFX={
+var SFX={
   ctx:null,muted:false,
   init(){if(!this.ctx)try{this.ctx=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}},
   play(freq,dur,type='sine',vol=0.25){
@@ -2958,7 +2948,7 @@ function toggleSound(){
 }
 
 /* ══ RECORDS SYSTEM ══ */
-const REC={
+var REC={
   data:JSON.parse(localStorage.getItem('av_records')||'{}'),
   user:localStorage.getItem('av_username')||'',
   save(){localStorage.setItem('av_records',JSON.stringify(this.data));},
@@ -8140,7 +8130,7 @@ function buildNASALive(el){
 }
 
 /* ══ KNOWLEDGE EXPANSIONS ══ */
-const KNOW_TECH_EXTRA=[
+var KNOW_TECH_EXTRA=[
   {icon:'01',title:'Binary & How Computers Think',tag:'Technology',desc:'The language beneath all computation.',
    detail:'Binary is base-2 arithmetic — only 0 and 1. Every computer operation: a string of electrical switches, either off (0) or on (1).\n\nWhy binary? Because transistors are either conducting or not. Digital = discrete states.\n\n8 bits = 1 byte. 1024 bytes = 1 kilobyte. 1024³ = 1 gigabyte. Your phone has 128+ billion bytes.\n\nASCII: The letter "A" = 01000001. "a" = 01100001. All text, all images, all video — ultimately sequences of 0s and 1s.\n\nBinary math: 0+0=0, 0+1=1, 1+0=1, 1+1=10 (carry the 1). The CPU performs billions of these operations per second.\n\nQuantum computing breaks this — qubits can be 0, 1, or BOTH simultaneously (superposition). This is why quantum computers can solve certain problems exponentially faster.'},
   {icon:'∑',title:'Algorithms — The Rules of Thought',tag:'Technology',desc:'Step-by-step instructions for solving problems.',
