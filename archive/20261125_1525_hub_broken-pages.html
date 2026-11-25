@@ -1,0 +1,67 @@
+<!-- Archived from the AVIDAA hub on 20261125_1525. Reason: go(name) threw a ReferenceError for each (LT, LP, LY undefined), so the page never rendered. Nothing deleted. -->
+<div class="page" id="page-accounting">
+  <div class="sec" style="color:#2dd4a0">&#x1F4CA; Accounting</div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem">
+    <button id="acct2-tab-ledger" onclick="acctTab('ledger',this)" class="tl-tab active" style="font-size:10px">&#x1F4D2; Ledger</button>
+    <button onclick="acctTab('reports',this)" class="tl-tab" style="font-size:10px">&#x1F4C8; Reports</button>
+    <button onclick="acctTab('ratios',this)" class="tl-tab" style="font-size:10px">&#x1F4D0; Ratios</button>
+    <button onclick="acctTab('terms',this)" class="tl-tab" style="font-size:10px">&#x1F4CB; Terms</button>
+  </div>
+  <div id="accounting-content"></div>
+</div>
+
+
+<!-- nav-map button -->
+        <button onclick="go('accounting');closeNavMap()" class="nm-btn" style="color:#2dd4a0">&#x1F4CA; Accounting</button>
+<div class="page" id="page-illusions">
+  <div class="sec" style="color:#c084fc">&#x1F300; Optical Illusions</div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem">
+    <button id="ill2-tab-classic" onclick="illusionTab('classic',this)" class="tl-tab active" style="font-size:10px">&#x1F300; Classic</button>
+    <button onclick="illusionTab('moving',this)" class="tl-tab" style="font-size:10px">&#x1F504; Motion</button>
+    <button onclick="illusionTab('impossible',this)" class="tl-tab" style="font-size:10px">&#x267E;&#xFE0F; Impossible</button>
+    <button onclick="illusionTab('stereo',this)" class="tl-tab" style="font-size:10px;color:#fbbf24">&#x1F52E; Stereo</button>
+    <button onclick="illusionTab('rabbit',this)" class="tl-tab" style="font-size:10px">&#x1F430; Rabbit-Duck</button>
+  </div>
+  <div id="illusion-content"></div>
+</div>
+
+
+<!-- nav-map button -->
+        <button onclick="go('illusions');closeNavMap()" class="nm-btn" style="color:#c084fc">&#x1F300; Illusions</button>
+<div class="page" id="page-humanity">
+  <div class="sec" style="color:#4ade80">&#x1F9EC; Humanity Knowledge</div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem">
+    <button id="hum2-tab-island" onclick="humanityTab('island',this)" class="tl-tab active" style="font-size:10px">&#x1F3DD;&#xFE0F; Island</button>
+    <button onclick="humanityTab('genetics',this)" class="tl-tab" style="font-size:10px">&#x1F9EC; Genetics</button>
+    <button onclick="humanityTab('cooldown',this)" class="tl-tab" style="font-size:10px">&#x1F9CA; Cooldown</button>
+    <button onclick="humanityTab('limits',this)" class="tl-tab" style="font-size:10px">&#x1F4AA; Limits</button>
+  </div>
+  <div id="humanity-content"></div>
+</div>
+
+
+<!-- nav-map button -->
+        <button onclick="go('humanity');closeNavMap()" class="nm-btn" style="color:#4ade80">&#x1F9EC; Humanity</button>
+<div class="page" id="page-god">
+  <div class="sec" style="color:#e8c97a">&#x2728; God &#x2014; The Nameless Force</div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem">
+    <button id="god2-tab-alone" onclick="godTab('alone',this)" class="tl-tab active" style="font-size:10px;color:#e8c97a;border-color:rgba(232,201,122,.3)">&#x1F30C; Being Alone</button>
+    <button onclick="godTab('force',this)" class="tl-tab" style="font-size:10px">&#x26A1; The Force</button>
+    <button onclick="godTab('proof',this)" class="tl-tab" style="font-size:10px">&#x1F9ED; Evidence</button>
+    <button onclick="godTab('challenge',this)" class="tl-tab" style="font-size:10px">&#x1F525; Suffering</button>
+  </div>
+  <div id="god-content"></div>
+</div>
+
+
+<!-- nav-map button -->
+        <button onclick="go('god');closeNavMap()" class="nm-btn" style="color:#e8c97a">&#x2728; God</button>
+
+<!-- js tile/search entry -->  {id:'accounting',em:'📊', label:'Accounting',    desc:'Bookkeeping · Xero · Journal entries',     col:'#4ade80'},
+<!-- js tile/search entry -->  {id:'illusions', em:'🔮', label:'Illusions',     desc:'Optical illusions · Perception science',   col:'#f43f5e'},
+<!-- js tile/search entry -->  {id:'humanity',  em:'🌍', label:'Humanity',      desc:'Human story · Rights · Future',            col:'#60a5fa'},
+<!-- js tile/search entry -->  {id:'god',       em:'✨', label:'God & Spirit',  desc:'Philosophy · Faith · Ancient beliefs',     col:'#e8c97a'},
+<!-- js tile/search entry -->  {icon:'🌀',title:'Optical Illusions',keys:'illusion optical autostereogram magic eye visual brain',page:'illusions'},
+<!-- js tile/search entry -->  {icon:'🧬',title:'Humanity Knowledge',keys:'humanity procreation island survival genetics reproduction',page:'humanity'},
+<!-- js tile/search entry -->  {icon:'✨',title:'God',keys:'god existence alone spirituality universe force nameless',page:'god'},
+<!-- js tile/search entry -->  {em:'📊',title:'Accounting',sub:'Ledger balance sheet debit credit',page:'accounting',tag:'finance'},
