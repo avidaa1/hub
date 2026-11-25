@@ -7,6 +7,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>AVIDAA HUB — Human × AI Knowledge Hub</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%2306091e'/><path d='M50 14 L61 40 L90 42 L68 60 L75 88 L50 72 L25 88 L32 60 L10 42 L39 40 Z' fill='%23FFD93D'/></svg>">
   <meta name="description" content="AVIDAA HUB — A Human-AI knowledge hub. Music, signals, blockchain, ancient languages, science, culture, accessibility and global data. Built for humans and AI alike.">
   <meta property="og:title" content="AVIDAA HUB — Human × AI Knowledge Hub">
   <meta property="og:description" content="Music · Blockchain · Ancient Languages · Science · Culture · Accessibility · Global Data">
@@ -5017,6 +5018,7 @@ var GAME_LIST=[
   {id:'quiz',em:'&#x1F9E0;',name:'AI Quiz',zone:'puzzle',age:'10+',desc:'Beat the AI trivia'},
   {id:'contra',em:'&#x1F52B;',name:'Contra',zone:'action',age:'14+',desc:'Run and gun combat'},
   {id:'warzone',em:'&#x1F4A5;',name:'Warzone',zone:'action',age:'14+',desc:'Battle arena'},
+  {id:'breach',em:'&#x1F579;',name:'AVIDAA Breach',zone:'action',age:'14+',desc:'Run and gun, boss fight, 1 to 4 players with PS4 pads',href:'https://avidaa1.github.io/breach/'},
   {id:'solitaire',em:'&#x1F0CF;',name:'Solitaire',zone:'cards',age:'All',desc:'Classic card solitaire'},
   {id:'uno',em:'&#x1F534;',name:'UNO',zone:'cards',age:'All',desc:'Classic UNO vs CPU'},
   {id:'unomercy',em:'&#x1F480;',name:'UNO No Mercy',zone:'cards',age:'All',desc:'Brutal UNO variant'},
@@ -5033,7 +5035,7 @@ function buildGamesLobby(){
     m.style.display='none';document.body.appendChild(m);
   }
   var ageCls={All:'age-all','7+':'age-7','10+':'age-10','14+':'age-14'};
-  function makeCard(g){var aLbl=g.age==='All'?'All Ages':g.age;return '<div class="game-card" onclick="openGame(\''+g.id+'\')">'+'<div class="gc-age '+(ageCls[g.age]||'age-all')+'">'+aLbl+'</div>'+'<div class="gc-em">'+g.em+'</div><div class="gc-name">'+g.name+'</div><div class="gc-desc">'+g.desc+'</div></div>';}
+  function makeCard(g){var aLbl=g.age==='All'?'All Ages':g.age;var inner='<div class="gc-age '+(ageCls[g.age]||'age-all')+'">'+aLbl+'</div>'+'<div class="gc-em">'+g.em+'</div><div class="gc-name">'+g.name+'</div><div class="gc-desc">'+g.desc+'</div>';if(g.href)return '<a class="game-card" href="'+g.href+'" style="display:block;text-decoration:none">'+inner+'</a>';return '<div class="game-card" onclick="openGame(\''+g.id+'\')">'+inner+'</div>';}
   var seenIds={};
   ['arcade','puzzle','action','cards'].forEach(function(zone){
     var lid=zone==='arcade'?'games-lobby':zone+'-lobby';
@@ -21947,9 +21949,9 @@ window.nucStep=function(id){
 
 </script>
 <script id="av-shell-20261124">/* AVIDAA shell: shared header (or floating pill) + footer with the "Last updated" stamp. No outside calls, no tracking.
-   Template tokens are replaced when a page is built: Hub --av-tools Tools 2026-11-24 06:36 */
+   Template tokens are replaced when a page is built: Hub --av-tools Tools 2026-11-25 03:53 */
 (function(){
-  var NAME='Hub',SECTOR='--av-tools',STAMP='2026-11-24 06:36',HOME='https://avidaa1.github.io/';
+  var NAME='Hub',SECTOR='--av-tools',STAMP='2026-11-25 03:53',HOME='https://avidaa1.github.io/';
   var ARROW='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   function build(){
     if(!document.body||document.querySelector('.av-footer'))return;
