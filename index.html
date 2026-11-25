@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self';script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://unpkg.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net;style-src 'self' 'unsafe-inline' https://unpkg.com;connect-src 'self' https://api.github.com https://api.coingecko.com https://api.nasa.gov https://api.open-meteo.com https://api.open-notify.org https://api.qrserver.com https://api.wheretheiss.at https://api.alternative.me https://earthquake.usgs.gov https://mempool.space https://nominatim.openstreetmap.org https://open.er-api.com https://services.swpc.noaa.gov https://www.nhc.noaa.gov https://www.googletagmanager.com https://www.google-analytics.com https://cdn1.suno.ai https://cdn2.suno.ai https://suno.com;img-src 'self' https: data: blob:;font-src 'self' https: data:;media-src 'self' https: blob:;frame-src https://www.youtube.com https://globe.adsbexchange.com https://www.marinetraffic.com https://www.vesselfinder.com https://embed.windy.com https://openstreetmap.org https://www.openstreetmap.org;object-src 'none';base-uri 'self';form-action 'self';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self';script-src 'self' 'unsafe-inline' https://unpkg.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net;style-src 'self' 'unsafe-inline' https://unpkg.com;connect-src 'self' https://api.github.com https://api.coingecko.com https://api.nasa.gov https://api.open-meteo.com https://api.open-notify.org https://api.qrserver.com https://api.wheretheiss.at https://api.alternative.me https://earthquake.usgs.gov https://mempool.space https://nominatim.openstreetmap.org https://open.er-api.com https://services.swpc.noaa.gov https://www.nhc.noaa.gov https://cdn1.suno.ai https://cdn2.suno.ai https://suno.com;img-src 'self' https: data: blob:;font-src 'self' https: data:;media-src 'self' https: blob:;frame-src https://www.youtube.com https://globe.adsbexchange.com https://www.marinetraffic.com https://www.vesselfinder.com https://embed.windy.com https://openstreetmap.org https://www.openstreetmap.org;object-src 'none';base-uri 'self';form-action 'self';">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()">
 <meta charset="UTF-8"/>
@@ -13,14 +13,6 @@
 <meta name="description" content="AVIDAA HUB — A Human-AI knowledge hub. Music, signals, blockchain, ancient languages, science, culture, accessibility and global data. Built for humans and AI alike.">
   <meta property="og:title" content="AVIDAA HUB — Human × AI Knowledge Hub">
   <meta property="og:description" content="Music · Blockchain · Ancient Languages · Science · Culture · Accessibility · Global Data">
-<!-- Google tag (gtag.js) - G-G8M1YZQ8WF -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-G8M1YZQ8WF"></script>
-<script>
-  window.dataLayer=window.dataLayer||[];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js',new Date());
-  gtag('config','G-G8M1YZQ8WF',{'anonymize_ip':true,'cookie_flags':'SameSite=None;Secure'});
-</script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
@@ -3833,7 +3825,7 @@ function go(name){
   window.scrollTo(0,0);
   _logNav(name);
   _navPush(name);
-  try{if(typeof gtag!=='undefined')gtag('event','page_view',{page_title:name,page_path:'/'+name});}catch(e){}
+  
   if(name==='music'){buildMusic();
   if(name==='music'){setTimeout(function(){musicAccTab('all',document.getElementById('macc-all'));},80);}}
   if(name==='hub'){buildNavHub();}
@@ -21525,7 +21517,7 @@ window.nucStep=function(id){
 <script id="av-shell-20261124">/* AVIDAA shell: shared header (or floating pill) + footer with the "Last updated" stamp. No outside calls, no tracking.
    Template tokens are replaced when a page is built: Hub --av-tools Tools 2026-11-25 03:53 */
 (function(){
-  var NAME='Hub',SECTOR='--av-tools',STAMP='2026-11-25 15:34',HOME='https://avidaa1.github.io/';
+  var NAME='Hub',SECTOR='--av-tools',STAMP='2026-11-25 15:57',HOME='https://avidaa1.github.io/';
   var ARROW='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   function build(){
     if(!document.body||document.querySelector('.av-footer'))return;
